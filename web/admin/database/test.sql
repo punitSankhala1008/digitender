@@ -41,7 +41,8 @@ CREATE TABLE `head` (
 
 INSERT INTO `head` (`headid`, `email`, `password`, `department`) VALUES
 (1, 'saleshead@gmail.com', 'password', 'sales'),
-(2, 'marketinghead@gmail.com', 'password', 'marketing');
+(2, 'marketinghead@gmail.com', 'password', 'marketing'),
+(3, 'admin.new@digitender.com', 'Admin@123', 'operations');
 
 -- --------------------------------------------------------
 
@@ -159,7 +160,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `head`
 --
 ALTER TABLE `head`
-  MODIFY `headid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `headid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `registration`

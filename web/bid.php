@@ -2,7 +2,7 @@
 include"dbconfig.php";
 
 	//extract($_REQUEST);
-	 echo $query="select * from tender where id= '".$_REQUEST['id']."'";
+	 $query="select * from tender where id= '".$_REQUEST['id']."'";
 	$result=select($query);
 
 

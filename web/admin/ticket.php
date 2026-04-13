@@ -1,6 +1,6 @@
 <?php
 include"dbconfig.php";
-if($_SESSION['login']=="yes")
+if(isset($_SESSION['admin_login']) && $_SESSION['admin_login']=="yes")
 {
 	
 }
@@ -235,28 +235,51 @@ if(isset($_REQUEST['tender']))
   $filepatho = $filenameone !== "" ? "img/".$filenameone : "";
   $filepatht = $filenametwo !== "" ? "img/".$filenametwo : "";
 
-  $uploadOk = true;
-  if ($filenameone !== "" && $errorone === UPLOAD_ERR_OK) {
-    $uploadOk = move_uploaded_file($tmp_name, "img/$filenameone");
-  }
-  if ($uploadOk && $filenametwo !== "" && $errortwo === UPLOAD_ERR_OK) {
-    $uploadOk = move_uploaded_file($tmp_nametwo, "img/$filenametwo");
+  $uploadIssues = array();
+  $targetDir = __DIR__ . "/img";
+
+  if (!is_dir($targetDir)) {
+    @mkdir($targetDir, 0777, true);
   }
 
-  if (!$uploadOk) {
-    echo "<script>alert('File upload failed. Please try again.');</script>";
-  } else {
-    $query="INSERT INTO `tender`(`TID`, `sector_name`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`) VALUES 
-    ('$tid','$sector','$discription','$filepatho','$filepatht','$city','$inr','$date','$time')";
-    $n=iud($query);
-    if($n==1)
-    {
+  if ($filenameone !== "" && $errorone === UPLOAD_ERR_OK) {
+    if (is_writable($targetDir)) {
+      if (!@move_uploaded_file($tmp_name, $targetDir . "/" . $filenameone)) {
+        $filepatho = "";
+        $uploadIssues[] = "File 1";
+      }
+    } else {
+      $filepatho = "";
+      $uploadIssues[] = "File 1";
+    }
+  }
+
+  if ($filenametwo !== "" && $errortwo === UPLOAD_ERR_OK) {
+    if (is_writable($targetDir)) {
+      if (!@move_uploaded_file($tmp_nametwo, $targetDir . "/" . $filenametwo)) {
+        $filepatht = "";
+        $uploadIssues[] = "File 2";
+      }
+    } else {
+      $filepatht = "";
+      $uploadIssues[] = "File 2";
+    }
+  }
+
+  $query="INSERT INTO `tender`(`TID`, `sector_name`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`) VALUES 
+  ('$tid','$sector','$discription','$filepatho','$filepatht','$city','$inr','$date','$time')";
+  $n=iud($query);
+  if($n==1)
+  {
+    if (count($uploadIssues) > 0) {
+      echo"<script>alert('Tender created, but " . implode(', ', $uploadIssues) . " could not be uploaded due to server permissions.'); window.location='confirm_tenders.php';</script>";
+    } else {
       echo"<script>alert('Tender created successfully'); window.location='confirm_tenders.php';</script>";
     }
-    else
-    {
-      echo"<script>alert('Unable to create tender. Please check entered details.');</script>";
-    }
+  }
+  else
+  {
+    echo"<script>alert('Unable to create tender. Please check entered details.');</script>";
   }
   }
 	

@@ -35,18 +35,6 @@ include"dbconfig.php";
 			});
 	</script>
 <!-- //end-smoth-scrolling -->
-<style>
-.blinking{
-    animation:blinkingText 2s infinite;
-}
-@keyframes blinkingText{
-    0%{     color: #000;    }
-    49%{    color: transparent; }
-    50%{    color: transparent; }
-    99%{    color:transparent;  }
-    100%{   color: #000;    }
-}
-</style>
 </head>
 <body>
 <!--top nav start here-->
@@ -131,28 +119,26 @@ Tender-<?=$n?></br>
  	
 			</div>
 			<div class="col-lg-2" style="color:blue">
-			
-			
-			<MARQUEE SCROLLDELAY=500 class="bg-danger" style="font-weight:bold">Sector-<?=$sector_name?></MARQUEE></br>
-			
-			<MARQUEE SCROLLDELAY=500 class="bg-danger" style="font-weight:bold">city-<?=$city?></MARQUEE></br>
-			<MARQUEE SCROLLDELAY=500 class="bg-danger" style="font-weight:bold">	INR-<?=$INR?>/-</MARQUEE></br>
+			<div class="tender-meta">
+				<span class="meta-chip">Sector: <?=$sector_name?></span>
+				<span class="meta-chip">City: <?=$city?></span>
+				<span class="meta-chip">INR: <?=$INR?>/-</span>
+			</div>
 			</div>
 			<div class="col-lg-4">
-			
-			<span class="blinking">Am I blinking?</span>
-			<blink><a href="admin/<?=$fileone?>" class=" blinking btn btn-danger">Download File</a></blink></br>
-			<a href="admin/<?=$filetwo?>" class="blinking btn btn-danger">Download File</a>
+			<div class="download-actions">
+				<a href="admin/<?=$fileone?>" class="btn btn-danger">Download File 1</a>
+				<a href="admin/<?=$filetwo?>" class="btn btn-danger">Download File 2</a>
+			</div>
 			</div>
 			<div class="col-lg-2">
-			
- <?=ucwords($discription)?>		
+			<span class="tender-desc"><?=ucwords($discription)?></span>
 			</div>
 				<div class="col-lg-2" style="color:blue">
- Due Date-<?=$due_date?></br>		
- Time-<?=$time?>		
+			<div class="tender-due">Due Date: <?=$due_date?></div>
+			<div class="tender-due">Time: <?=$time?></div>
 			</div>
-			<a href="bidding.php?id=<?=$id?>"><div class="col-lg-1"><button class="btn btn-danger ">B I D</button></div></a>
+			<div class="col-lg-1"><a href="bidding.php?id=<?=$id?>" class="btn btn-danger">BID</a></div>
 		
 			
 			</div>

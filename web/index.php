@@ -19,6 +19,7 @@ include"dbconfig.php";
 <meta name="keywords" content="Tender Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <!--Google Fonts-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
@@ -31,6 +32,21 @@ include"dbconfig.php";
 			});
 	</script>
 <!-- //end-smoth-scrolling -->
+<style>
+/* Home hero fallback styles (kept here to avoid broken UI when shared CSS is overridden) */
+.home-admin-btn { display:inline-block; padding:6px 12px; margin-right:10px; border-radius:999px; background:rgba(255,255,255,.18); color:#fff !important; font-size:12px; font-weight:700; text-decoration:none; border:1px solid rgba(255,255,255,.35); }
+.home-admin-btn:hover { background:#fff; color:#ef476f !important; }
+.home-hero { width:100%; min-height:360px; background:linear-gradient(130deg, rgba(15,39,68,.85), rgba(36,59,85,.78)), url(images/banner.jpg) center/cover no-repeat; border-radius:14px; padding:30px; display:flex; align-items:center; justify-content:center; margin-top:10px; }
+.hero-card { max-width:780px; background:rgba(255,255,255,.94); border:1px solid rgba(255,255,255,.7); border-radius:16px; padding:26px; box-shadow:0 22px 38px rgba(19,29,49,.24); text-align:center; }
+.hero-tag { display:inline-block; margin-bottom:10px; padding:6px 12px; border-radius:999px; background:#fbe3eb; color:#d93a60; font-size:12px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; }
+.home-hero h2 { margin:0; color:#1e2c42; font-size:34px; line-height:1.2; font-family:'Space Grotesk',sans-serif; }
+.home-hero h3 { margin:12px 0 0; color:#4e5f77; font-size:17px; font-weight:600; }
+.hero-actions { margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.hero-btn { display:inline-block; padding:11px 16px; border-radius:10px; background:linear-gradient(90deg,#ef476f,#ff5f87); color:#fff !important; text-decoration:none; font-weight:700; box-shadow:0 10px 18px rgba(239,71,111,.24); }
+.hero-btn-light { background:#fff; color:#1e2c42 !important; border:1px solid #d5ddeb; box-shadow:none; }
+.hero-btn-admin { background:linear-gradient(90deg,#4656e7,#5f7aff); }
+@media (max-width:768px){ .home-hero{padding:16px; min-height:300px;} .hero-card{padding:18px;} .home-hero h2{font-size:26px;} .home-hero h3{font-size:15px;} }
+</style>
 </head>
 <body>
 <!--top nav start here-->
@@ -47,6 +63,7 @@ include"dbconfig.php";
 			</div>
 			<div class="social-icons">
 				<ul>
+					<li><a href="admin/index.php" class="home-admin-btn">Admin Login</a></li>
 					<li><a href="https://www.facebook.com/projecttunnel/"> <span class="w-f"> </span></a></li>
                    <li><a href="https://twitter.com/PROJECTTUNNEL1"> <span class="w-tw"> </span></a></li>
                    <li><a href="https://www.linkedin.com/in/project-tunnel-75479a164/"> <span class="w-in"> </span></a></li>
@@ -86,13 +103,16 @@ include"dbconfig.php";
   </div>
 <!--header end here-->
 <!--banner start here-->
- <div class="banner"  >
-		<img src="images/banner.jpg" width="1070px" alt=""/>
-		<img src="images/logo.png" alt=""/>
-		<h3>Corem ipsum</h3>
-		<h2>SIT AMET VIVAMUS</h2>
-		<div class="banner-button">
-			<a href="#">More info</a>
+ <div class="banner home-hero"  >
+		<div class="hero-card">
+			<p class="hero-tag">Digital Tender Management</p>
+			<h2>Find, Compare, and Win Government Tenders Faster</h2>
+			<h3>One clean portal for tender discovery, bid tracking, and allocation workflows.</h3>
+			<div class="hero-actions">
+				<a href="tender.php" class="hero-btn">Explore Tenders</a>
+				<a href="register.php" class="hero-btn hero-btn-light">Create Account</a>
+				<a href="admin/index.php" class="hero-btn hero-btn-admin">Admin Login</a>
+			</div>
 		</div>
 </div>
 <!--banner end here-->

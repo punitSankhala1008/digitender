@@ -54,43 +54,71 @@ if (isset($_POST['register'])) {
 <html>
 <head>
     <title>Register | Digitender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
+        <style>
+            body.auth-page { min-height: 100vh; margin: 0; padding: 48px 16px; font-family: 'Manrope', sans-serif; background: radial-gradient(circle at 10% 10%, #fff2f6 0%, #f5f8ff 42%, #eef3fb 100%); }
+            .auth-wrap { max-width: 460px; margin: 0 auto; }
+            .auth-brand { text-align: center; margin-bottom: 16px; }
+            .auth-brand a { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; color: #223247; text-decoration: none; }
+            .auth-brand p { color: #6f7d8c; margin-top: 4px; }
+            .auth-card { background: #fff; border: 1px solid #e9edf4; border-radius: 16px; padding: 26px; box-shadow: 0 20px 45px rgba(36, 47, 74, 0.14); }
+            .auth-title { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: #223247; }
+            .auth-helper { margin: 8px 0 20px; color: #6f7d8c; font-size: 14px; }
+            .auth-card .form-group { margin-bottom: 14px; }
+            .auth-card .form-control { height: 46px; border-radius: 10px; border: 1px solid #d8dfea; }
+            .auth-card .form-control:focus { border-color: #ef476f; box-shadow: 0 0 0 3px rgba(239, 71, 111, 0.16); }
+            .auth-btn { width: 100%; height: 46px; border: 0; border-radius: 10px; background: linear-gradient(90deg, #ef476f, #ff5f87); color: #fff; font-weight: 700; }
+            .auth-btn.alt { background: linear-gradient(90deg, #4f6ef7, #6282ff); }
+            .auth-footer { margin-top: 16px; color: #6f7d8c; font-size: 14px; text-align: center; }
+            .auth-footer a { font-weight: 700; color: #d93a60; text-decoration: none; }
+        </style>
 </head>
-<body>
+<body class="auth-page">
 
-<h2 style="text-align:center;background-color:#F35761;color:white;font-weight:bold">REGISTER</h2>
+<div class="auth-wrap">
+    <div class="auth-brand">
+        <a href="index.php">Digitender</a>
+        <p>Create your account to start bidding</p>
+    </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <div class="chart-area">
-                <form method="post" action="register.php" id="registerForm">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="aadhaar" id="aadhaar" placeholder="Aadhaar Number" required>
-                        <button type="button" id="sendOtpBtn" class="btn btn-secondary btn-block">Send OTP</button>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="otp" placeholder="Enter OTP" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    </div>
-                    <input type="submit" value="Register" name="register" class="btn btn-primary btn-block">
-                </form>
+    <div class="auth-card">
+        <h2 class="auth-title">Create Account</h2>
+        <p class="auth-helper">Fill in your details and verify OTP to continue.</p>
+
+        <form method="post" action="register.php" id="registerForm" autocomplete="off">
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Full name" required>
             </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email address" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile number" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="aadhaar" id="aadhaar" placeholder="Aadhaar number" required>
+            </div>
+
+            <div class="form-group">
+                <button type="button" id="sendOtpBtn" class="auth-btn alt">Send OTP</button>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="otp" placeholder="Enter OTP" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" name="register" class="auth-btn">Register</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="login.php">Login here</a>
         </div>
-        <div class="col-lg-4"></div>
     </div>
 </div>
 

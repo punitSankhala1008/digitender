@@ -156,7 +156,8 @@ if(isset($_REQUEST['login']))
 	$email=trim($_REQUEST['email']);
 	$password=trim($_REQUEST['password']);
 	
-  $query="select * from registration where email='".addslashes($email)."' limit 1";
+  // Admin panel must authenticate only against admin records, not normal users.
+  $query="select * from head where email='".addslashes($email)."' limit 1";
   $login_data=select($query);
 	
   if($login_data && mysqli_num_rows($login_data)==1)
@@ -165,13 +166,14 @@ if(isset($_REQUEST['login']))
     extract($data);
     $dbPassword = isset($data['password']) ? $data['password'] : '';
 		
-    // Support both legacy plain-text passwords and modern hashed passwords.
+    // Support both legacy plain-text passwords and hashed passwords.
     $isValid = ($password === $dbPassword) || password_verify($password, $dbPassword);
 		
     if($isValid)
     {
-      $_SESSION['id']=$id;
-      $_SESSION['login']="yes";
+			$_SESSION['admin_id']=isset($headid) ? $headid : 0;
+			$_SESSION['admin_email']=$email;
+			$_SESSION['admin_login']="yes";
 			
       echo'<script>alert("login success")
             window.location="ticket.php"

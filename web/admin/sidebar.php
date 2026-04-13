@@ -1,4 +1,13 @@
-
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+$currentPage = basename($_SERVER['PHP_SELF']);
+if ($currentPage !== 'index.php' && (!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] !== 'yes')) {
+  header('Location: index.php');
+  exit();
+}
+?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
@@ -89,8 +98,8 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>-->
-	 <?php
-if($_SESSION)
+   <?php
+if(isset($_SESSION['admin_login']) && $_SESSION['admin_login']=="yes")
 {
 	?>
 	 <li class="nav-item">
