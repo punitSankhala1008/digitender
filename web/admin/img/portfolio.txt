@@ -1,0 +1,44 @@
+Mobile Solution
+	1. Grocerry Booking App
+	2. Vegetable Store App
+	3. Fashion Cloth Booking App
+	4. Food Delivery and Booking App
+	5. Matrimonial Matching Couple App
+	6. Read My Book App
+	7. Hotel Booking and Management App
+
+Website Solutions
+
+	1. Online Movie Ticket Booking
+	2. Online Automobile Showroom Management
+	3. Online Pharmacy Management
+	4. Stock or Inventory Management 
+	5. online Gym Management
+	6. Car Parking Booking
+	7. Bike Parking Booking Management
+	8. Online School Management Project
+	9. Library Management 
+	10. Online GST Billing Software
+	11. Online Shoping Website
+	12. Car Pooling Website
+	13. Hotel Booking Website
+	14. Online Intership Managemnet Project
+	15. Tourism Service Providers
+	16. Online Objective and Subjective Examination Portal
+	17. Online Hospital Managemnt
+	18. Online Book Rental Project
+	19. Freelancer Job Portal
+	20 Matrimonial Project
+
+Desktop Solutions
+
+	1. School Management Software
+	2. College Account Management Software
+	3. Pharmacy Billing system
+	4. Hotel Billing Software
+	5. Hospital Billing software
+	6. Coaching Institute Billing Management
+	7. Employee Salary Management with attendence
+	8. Inventory Management Software
+	9. Petrol Pump Account Management Software
+	10. Subjective and Objective Examination Software

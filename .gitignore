@@ -1,0 +1,24 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment/local secrets
+.env
+.env.*
+
+# Node dependencies (all subprojects)
+**/node_modules/
+
+# Common frontend build/cache artifacts
+**/dist/
+**/build/
+**/.cache/
+**/.sass-cache/

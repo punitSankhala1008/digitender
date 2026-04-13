@@ -1,0 +1,5 @@
+email sending
+page link
+header size
+footer size
+deng-open form from download button
