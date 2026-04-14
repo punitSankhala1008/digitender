@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: digitender-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_USER: digitender
+      DB_PASSWORD: digitender
+      DB_NAME: digitender
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - digitender
+
+  db:
+    image: mysql:5.7
+    container_name: digitender-db
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: digitender
+      MYSQL_PASSWORD: digitender
+      MYSQL_DATABASE: digitender
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_volume:/var/lib/mysql
+      - ./web/database:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-uroot",
+          "-prootpassword",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - digitender
+
+volumes:
+  db_volume:
+
+networks:
+  digitender:
+    driver: bridge
