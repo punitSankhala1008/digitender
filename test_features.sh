@@ -94,6 +94,19 @@ else
   fail "bidding.bid_id is not AUTO_INCREMENT"
 fi
 
+TENDER_CAT_COL="$(docker exec "$DB_CONTAINER" mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='$DB_NAME' AND TABLE_NAME='tender' AND COLUMN_NAME='category';" 2>/dev/null || true)"
+BIDDING_CAT_COL="$(docker exec "$DB_CONTAINER" mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='$DB_NAME' AND TABLE_NAME='bidding' AND COLUMN_NAME='category';" 2>/dev/null || true)"
+if [ "$TENDER_CAT_COL" = "1" ]; then
+  pass "tender.category column exists"
+else
+  fail "tender.category column missing"
+fi
+if [ "$BIDDING_CAT_COL" = "1" ]; then
+  pass "bidding.category column exists"
+else
+  fail "bidding.category column missing"
+fi
+
 echo "== User login and bidding flow =="
 USER_LOGIN_FILE="$TMP_DIR/user_login.html"
 curl -sS -c "$USER_COOKIE" -b "$USER_COOKIE" -L -X POST "$BASE_URL/login.php" \
@@ -104,11 +117,21 @@ UNIQ_CHARGE="TEST$RANDOM$RANDOM"
 BID_FILE="$TMP_DIR/bid_submit.html"
 curl -sS -c "$USER_COOKIE" -b "$USER_COOKIE" -L -X POST "$BASE_URL/bidding.php?id=$TENDER_ID" \
   --data "name=autotest&email=$USER_EMAIL&mobile=9998887776&charge=$UNIQ_CHARGE&day=7+days&bidding=BIDDING" > "$BID_FILE"
-check_contains "Bid submission succeeds" "$BID_FILE" "BIDDING SUCCESSFUL"
+if grep -qi "BIDDING SUCCESSFUL" "$BID_FILE" || grep -qi "BID UPDATED SUCCESSFULLY" "$BID_FILE"; then
+  pass "Bid submission/update succeeds"
+else
+  fail "Bid submission/update failed"
+fi
 
 MY_BIDS_FILE="$TMP_DIR/my_bids.html"
 curl -sS -c "$USER_COOKIE" -b "$USER_COOKIE" "$BASE_URL/mybiddings.php" > "$MY_BIDS_FILE"
 check_contains "New bid appears in My Biddings" "$MY_BIDS_FILE" "$UNIQ_CHARGE"
+check_contains "Bid category shown in My Biddings" "$MY_BIDS_FILE" "Category-"
+
+echo "== Tender category filter =="
+TENDER_FILTER_FILE="$TMP_DIR/tender_filter.html"
+curl -sS "$BASE_URL/tender.php?category=General" > "$TENDER_FILTER_FILE"
+check_contains "Tender page supports category filter" "$TENDER_FILTER_FILE" "Category"
 
 echo "== Admin login flow =="
 ADMIN_LOGIN_FILE="$TMP_DIR/admin_login.html"

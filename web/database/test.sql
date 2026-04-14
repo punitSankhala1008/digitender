@@ -35,6 +35,7 @@ CREATE TABLE `bidding` (
   `mobile` varchar(30) NOT NULL,
   `charge` varchar(30) NOT NULL,
   `days` varchar(50) NOT NULL,
+  `category` varchar(60) NOT NULL DEFAULT 'General',
   `tenderid` int(3) NOT NULL,
   `userid` int(3) NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'0'
@@ -44,9 +45,9 @@ CREATE TABLE `bidding` (
 -- Dumping data for table `bidding`
 --
 
-INSERT INTO `bidding` (`bid_id`, `name`, `email`, `mobile`, `charge`, `days`, `tenderid`, `userid`, `status`) VALUES
-(1, 'anshu', 'anshu@gmail.com', '9752376639', '20000', '20', 3, 2, b'1'),
-(2, 'anshu', 'anshu@gmail.com', '7412589632', '20000', '5 month', 5, 2, b'1');
+INSERT INTO `bidding` (`bid_id`, `name`, `email`, `mobile`, `charge`, `days`, `category`, `tenderid`, `userid`, `status`) VALUES
+(1, 'anshu', 'anshu@gmail.com', '9752376639', '20000', '20', 'IT Services', 3, 2, b'1'),
+(2, 'anshu', 'anshu@gmail.com', '7412589632', '20000', '5 month', 'Infrastructure', 5, 2, b'1');
 
 -- --------------------------------------------------------
 
@@ -129,6 +130,7 @@ CREATE TABLE `tender` (
   `id` int(3) NOT NULL,
   `TID` int(30) NOT NULL,
   `sector_name` varchar(50) NOT NULL,
+  `category` varchar(60) NOT NULL DEFAULT 'General',
   `discription` varchar(50) NOT NULL,
   `fileone` varchar(150) NOT NULL,
   `filetwo` varchar(150) NOT NULL,
@@ -143,9 +145,9 @@ CREATE TABLE `tender` (
 -- Dumping data for table `tender`
 --
 
-INSERT INTO `tender` (`id`, `TID`, `sector_name`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`, `allot`) VALUES
-(3, 741258963, 'sector 1', 'testing', 'img/a_resume.docx', 'img/a_resume.docx', 'bhopal', '78000', '2019-02-23', '2 year', b'1'),
-(5, 78965478, 'Nager Nigam', 'hyrtoi rioyp w tuiryo', 'img/77f379c3fccbdd51b7b71df70aac485e_23-7-18 final report.doc', 'img/0_civil-engineerin-final-year-project-52.jpg', 'mumbai', '80000', '2019-02-22', '2 year', b'0');
+INSERT INTO `tender` (`id`, `TID`, `sector_name`, `category`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`, `allot`) VALUES
+(3, 741258963, 'sector 1', 'IT Services', 'testing', 'img/a_resume.docx', 'img/a_resume.docx', 'bhopal', '78000', '2019-02-23', '2 year', b'1'),
+(5, 78965478, 'Nager Nigam', 'Infrastructure', 'hyrtoi rioyp w tuiryo', 'img/77f379c3fccbdd51b7b71df70aac485e_23-7-18 final report.doc', 'img/0_civil-engineerin-final-year-project-52.jpg', 'mumbai', '80000', '2019-02-22', '2 year', b'0');
 
 --
 -- Indexes for dumped tables

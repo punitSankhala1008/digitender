@@ -127,6 +127,11 @@ if(isset($_SESSION['admin_login']) && $_SESSION['admin_login']=="yes")
           <i class="fas fa-fw fa-chart-area"></i>
           <span style="font-wight:bold">CONFIRM BIDDINGS</span></a>
       </li>
+	  <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-fw fa-user"></i>
+          <span style="font-wight:bold">MY PROFILE</span></a>
+      </li>
 	   
 	  <li class="nav-item">
         <a class="nav-link" href="logout.php">

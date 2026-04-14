@@ -4,7 +4,7 @@ $result = false;
 if(isset($_REQUEST['search']))
 {
 	extract($_REQUEST);
-	 $query="select * from tender where (discription like '%$tender%' or city like '%$tender%') and allot='0'";
+	 $query="select * from tender where (discription like '%$tender%' or city like '%$tender%' or category like '%$tender%' or sector_name like '%$tender%') and allot='0'";
 	$result=select($query);
 }
 
@@ -118,6 +118,7 @@ Tender-<?=$n?></br>
 			<div class="col-lg-2" style="color:blue">
 			
 			Sector-<?=$sector_name?></br>
+			Category-<?=isset($category) ? $category : 'General'?></br>
 			city-<?=$city?></br>
 			INR-<?=$INR?>/-
 			</div>

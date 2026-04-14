@@ -1,8 +1,16 @@
 <?php
 include"dbconfig.php";
 
-	 $query="select * from tender where allot='0'";
+	$selectedCategory = isset($_GET['category']) ? trim($_GET['category']) : '';
+	$selectedCategorySql = addslashes($selectedCategory);
+	$filterSql = "";
+	if($selectedCategory !== "" && $selectedCategory !== "All")
+	{
+		$filterSql = " AND COALESCE(NULLIF(category,''),'General')='".$selectedCategorySql."'";
+	}
+	$query="select *, COALESCE(NULLIF(category,''),'General') as normalized_category from tender where allot='0'".$filterSql;
 	$result=select($query);
+	$categoryResult = select("SELECT DISTINCT COALESCE(NULLIF(category,''),'General') as category_name FROM tender WHERE allot='0' ORDER BY category_name ASC");
 
 
 ?>
@@ -91,6 +99,23 @@ include"dbconfig.php";
 
 <h2 style="text-align:center;background-color:#F35761;color:white;font-weight:bold">TENDERS</h2></br></br>
 <div class="container">
+	<div class="row">
+		<div class="col-lg-11">
+			<form method="get" class="form-inline" style="margin-bottom:16px; display:flex; gap:8px; align-items:center;">
+				<label for="category" style="font-weight:bold; margin-right:8px;">Category</label>
+				<select name="category" id="category" class="form-control" style="max-width:220px;">
+					<option value="All" <?=($selectedCategory === '' || $selectedCategory === 'All') ? 'selected' : ''?>>All</option>
+					<?php while($categoryResult && $catRow=mysqli_fetch_assoc($categoryResult)) { ?>
+						<option value="<?=$catRow['category_name']?>" <?=($selectedCategory === $catRow['category_name']) ? 'selected' : ''?>><?=$catRow['category_name']?></option>
+					<?php } ?>
+				</select>
+				<button type="submit" class="btn btn-primary">Apply</button>
+				<a href="tender.php" class="btn btn-default">Reset</a>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
 <div class="row">
 
 
@@ -121,6 +146,7 @@ Tender-<?=$n?></br>
 			<div class="col-lg-2" style="color:blue">
 			<div class="tender-meta">
 				<span class="meta-chip">Sector: <?=$sector_name?></span>
+				<span class="meta-chip">Category: <?=isset($normalized_category) ? $normalized_category : 'General'?></span>
 				<span class="meta-chip">City: <?=$city?></span>
 				<span class="meta-chip">INR: <?=$INR?>/-</span>
 			</div>

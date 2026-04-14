@@ -8,6 +8,7 @@
 			<li><a href="tender.php">Tenders</a></li>
 					<li><a href="mybiddings.php">My Biddings</a></li>
 					<li><a href="confirm_biddings.php">Confirm Biddings </a></li>
+					<li><a href="profile.php">My Profile</a></li>
 						<li><a href="logout.php">Logout</a></li>
 					
 	<?php	

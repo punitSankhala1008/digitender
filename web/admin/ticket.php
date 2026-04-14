@@ -158,6 +158,20 @@ else
                 <input type="text" id="inputEmail" class="form-control" name="city" placeholder="City" required="required">
                  </div>
             </div>
+          <div class="form-group">
+           <label for="category">Category</label>
+            <div class="form-label-group">
+            <select id="category" class="form-control" name="category" required="required">
+              <option value="">Select category</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="IT Services">IT Services</option>
+              <option value="Construction">Construction</option>
+              <option value="Consulting">Consulting</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="General">General</option>
+            </select>
+           </div>
+          </div>
 			<div class="form-group"> <label for="inputEmail">Discription</label>
             
               <div class="form-label-group">
@@ -218,6 +232,7 @@ if(isset($_REQUEST['tender']))
 
   $tid = addslashes(trim($tid));
   $sector = addslashes(trim($sector));
+  $category = isset($_REQUEST['category']) ? addslashes(trim($_REQUEST['category'])) : 'General';
   $discription = addslashes(trim($discription));
   $city = addslashes(trim($city));
   $inr = addslashes(trim($inr));
@@ -266,8 +281,8 @@ if(isset($_REQUEST['tender']))
     }
   }
 
-  $query="INSERT INTO `tender`(`TID`, `sector_name`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`) VALUES 
-  ('$tid','$sector','$discription','$filepatho','$filepatht','$city','$inr','$date','$time')";
+  $query="INSERT INTO `tender`(`TID`, `sector_name`, `category`, `discription`, `fileone`, `filetwo`, `city`, `INR`, `due_date`, `time`) VALUES 
+  ('$tid','$sector','$category','$discription','$filepatho','$filepatht','$city','$inr','$date','$time')";
   $n=iud($query);
   if($n==1)
   {

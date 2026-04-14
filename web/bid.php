@@ -107,6 +107,9 @@ include"dbconfig.php";
 			<div class="form-group">INR-
 			<input type="text" class="form-control" value="<?=$INR?>">
 			</div>
+			<div class="form-group">Category-
+			<input type="text" class="form-control" value="<?=isset($category) ? $category : 'General'?>">
+			</div>
 </div>
 <div class="col-lg-4">
 <div class="chart-area">

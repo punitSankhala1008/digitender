@@ -1,7 +1,32 @@
 <?php
 include"dbconfig.php";
-$query="SELECT * FROM `bidding` INNER JOIN tender ON bidding.tenderid=tender.id where bidding.status='0'";
+
+$selectedCategory = isset($_GET['category']) ? trim($_GET['category']) : '';
+$selectedCategorySql = addslashes($selectedCategory);
+$filterSql = "";
+if($selectedCategory !== "" && $selectedCategory !== "All")
+{
+  $filterSql = " AND COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General')='".$selectedCategorySql."'";
+}
+$query="SELECT 
+bidding.bid_id,
+bidding.name,
+bidding.email,
+bidding.mobile,
+bidding.charge,
+bidding.days,
+bidding.category AS bid_category,
+bidding.tenderid,
+tender.city,
+tender.sector_name,
+tender.category AS tender_category,
+COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General') AS normalized_category
+FROM bidding 
+INNER JOIN tender ON bidding.tenderid=tender.id 
+where bidding.status='0'".$filterSql;
 $result=select($query);
+
+$categoryResult = select("SELECT DISTINCT COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General') AS category_name FROM bidding INNER JOIN tender ON bidding.tenderid=tender.id WHERE bidding.status='0' ORDER BY category_name ASC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +94,17 @@ $result=select($query);
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
+              <form method="get" class="form-inline" style="margin-bottom:16px; display:flex; gap:8px; align-items:center;">
+                <label for="category" style="font-weight:bold; margin-right:8px;">Category</label>
+                <select name="category" id="category" class="form-control" style="max-width:220px;">
+                  <option value="All" <?=($selectedCategory === '' || $selectedCategory === 'All') ? 'selected' : ''?>>All</option>
+                  <?php while($categoryResult && $catRow=mysqli_fetch_assoc($categoryResult)) { ?>
+                    <option value="<?=$catRow['category_name']?>" <?=($selectedCategory === $catRow['category_name']) ? 'selected' : ''?>><?=$catRow['category_name']?></option>
+                  <?php } ?>
+                </select>
+                <button type="submit" class="btn btn-primary">Apply</button>
+                <a href="biddings.php" class="btn btn-secondary">Reset</a>
+              </form>
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -78,6 +114,7 @@ $result=select($query);
                       <th>Mobile</th>
                       <th>Charge</th>
                       <th>Days</th>
+                      <th>Category</th>
                       <th>City</th>
                       <th>Tender ID</th>
                       <th>Sector Name</th>
@@ -97,15 +134,16 @@ $result=select($query);
 					?>
                     <tr>
                       <td><?=$r[1]?></td>
-                      <td><?=$r[2]?></td>
-                      <td><?=$r[3]?></td>
-                       <td><?=$r[4]?></td>
-                      <td><?=$r[5]?></td>
-                       <td><?=$r[14]?></td>
-                       <td><?=$r[9]?></td>
-                       <td><?=$r[10]?></td>
-                       <td><a href="confirm_bidding.php?id=<?=$r[0]?>&tid=<?=$r[9]?>"><button class="btn btn-success">Confirm</button></td>
-                       <td><a href="delete_bidding.php?id=<?=$r[0]?>"><button class="btn btn-danger">X</button></td>
+                      <td><?=$r['email']?></td>
+                      <td><?=$r['mobile']?></td>
+                      <td><?=$r['charge']?></td>
+                      <td><?=$r['days']?></td>
+                      <td><?=$r['normalized_category']?></td>
+                      <td><?=$r['city']?></td>
+                      <td><?=$r['tenderid']?></td>
+                      <td><?=$r['sector_name']?></td>
+                      <td><a href="confirm_bidding.php?id=<?=$r['bid_id']?>&tid=<?=$r['tenderid']?>"><button class="btn btn-success">Confirm</button></td>
+                      <td><a href="delete_bidding.php?id=<?=$r['bid_id']?>"><button class="btn btn-danger">X</button></td>
                     
                       
                       </tr>

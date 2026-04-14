@@ -6,8 +6,37 @@ include"dbconfig.php";
 		header("Location: login.php");
 		exit();
 	}
-	$query="SELECT * FROM `bidding` INNER JOIN tender on bidding.tenderid=tender.id WHERE bidding.userid='".$_SESSION['id']."' and bidding.status='0' ";
+	$selectedCategory = isset($_GET['category']) ? trim($_GET['category']) : '';
+	$selectedCategorySql = addslashes($selectedCategory);
+	$filterSql = "";
+	if($selectedCategory !== "" && $selectedCategory !== "All")
+	{
+		$filterSql = " AND COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General')='".$selectedCategorySql."'";
+	}
+	$query="SELECT 
+	bidding.bid_id,
+	bidding.name,
+	bidding.email,
+	bidding.mobile,
+	bidding.charge,
+	bidding.days,
+	bidding.category AS bid_category,
+	bidding.tenderid,
+	tender.sector_name,
+	tender.discription,
+	tender.fileone,
+	tender.filetwo,
+	tender.city,
+	tender.due_date,
+	tender.INR,
+	tender.time,
+	tender.category AS tender_category,
+	COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General') AS normalized_category
+	FROM bidding 
+	INNER JOIN tender ON bidding.tenderid=tender.id 
+	WHERE bidding.userid='".$_SESSION['id']."' and bidding.status='0' ".$filterSql;
 	$result=select($query);
+	$categoryResult = select("SELECT DISTINCT COALESCE(NULLIF(bidding.category,''), NULLIF(tender.category,''), 'General') AS category_name FROM bidding INNER JOIN tender ON bidding.tenderid=tender.id WHERE bidding.userid='".$_SESSION['id']."' and bidding.status='0' ORDER BY category_name ASC");
 
 
 ?>
@@ -96,6 +125,23 @@ include"dbconfig.php";
 
 <h2 style="text-align:center;background-color:#F35761;color:white;font-weight:bold">My Biddings</h2></br></br>
 <div class="container">
+	<div class="row">
+		<div class="col-lg-11">
+			<form method="get" class="form-inline" style="margin-bottom:16px; display:flex; gap:8px; align-items:center;">
+				<label for="category" style="font-weight:bold; margin-right:8px;">Category</label>
+				<select name="category" id="category" class="form-control" style="max-width:220px;">
+					<option value="All" <?=($selectedCategory === '' || $selectedCategory === 'All') ? 'selected' : ''?>>All</option>
+					<?php while($categoryResult && $catRow=mysqli_fetch_assoc($categoryResult)) { ?>
+						<option value="<?=$catRow['category_name']?>" <?=($selectedCategory === $catRow['category_name']) ? 'selected' : ''?>><?=$catRow['category_name']?></option>
+					<?php } ?>
+				</select>
+				<button type="submit" class="btn btn-primary">Apply</button>
+				<a href="mybiddings.php" class="btn btn-default">Reset</a>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
 <div class="row">
 
 
@@ -124,22 +170,23 @@ Tender-<?=$n?></br>
  	
 			</div>
 			<div class="col-lg-2" style="color:blue">
-			
-			Tender ID-<?=$r[3]?></br>
-			Sector Name-<?=$r[11]?></br>
-			City-<?=$r[15]?>
+			Tender ID-<?=$r['tenderid']?></br>
+			Sector Name-<?=$r['sector_name']?></br>
+			Category-<?=$r['normalized_category']?></br>
+			City-<?=$r['city']?>
 			</div>
 			<div class="col-lg-4">
-			<a href="admin/<?=$r[13]?>" class="btn btn-danger">Download File</a></br>
-			<a href="admin/<?=$r[14]?>" class="btn btn-danger">Download File</a>
+			<a href="admin/<?=$r['fileone']?>" class="btn btn-danger">Download File</a></br>
+			<a href="admin/<?=$r['filetwo']?>" class="btn btn-danger">Download File</a>
 			</div>
 			<div class="col-lg-2">
 			
- <?=ucwords($r[12])?>		
+ <?=ucwords($r['discription'])?>		
 			</div>
 				<div class="col-lg-2" style="color:blue">
- Due Date-<?=$r[17]?></br>		
- INR-<?=$r[4]?>/-		
+ Due Date-<?=$r['due_date']?></br>		
+ Tender INR-<?=$r['INR']?>/-</br>
+ Bid Charge-<?=$r['charge']?>/-		
 			</div>
 			
 			

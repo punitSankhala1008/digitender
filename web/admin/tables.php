@@ -1,7 +1,16 @@
 <?php
 include"dbconfig.php";
-$query="SELECT * FROM `tender` where allot='0'";
+$selectedCategory = isset($_GET['category']) ? trim($_GET['category']) : '';
+$selectedCategorySql = addslashes($selectedCategory);
+$filterSql = "";
+if($selectedCategory !== "" && $selectedCategory !== "All")
+{
+  $filterSql = " AND COALESCE(NULLIF(category,''),'General')='".$selectedCategorySql."'";
+}
+
+$query="SELECT *, COALESCE(NULLIF(category,''),'General') AS normalized_category FROM tender where allot='0'".$filterSql;
 $result=select($query);
+$categoryResult = select("SELECT DISTINCT COALESCE(NULLIF(category,''),'General') AS category_name FROM tender WHERE allot='0' ORDER BY category_name ASC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,12 +78,24 @@ $result=select($query);
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
+              <form method="get" class="form-inline" style="margin-bottom:16px; display:flex; gap:8px; align-items:center;">
+                <label for="category" style="font-weight:bold; margin-right:8px;">Category</label>
+                <select name="category" id="category" class="form-control" style="max-width:220px;">
+                  <option value="All" <?=($selectedCategory === '' || $selectedCategory === 'All') ? 'selected' : ''?>>All</option>
+                  <?php while($categoryResult && $catRow=mysqli_fetch_assoc($categoryResult)) { ?>
+                    <option value="<?=$catRow['category_name']?>" <?=($selectedCategory === $catRow['category_name']) ? 'selected' : ''?>><?=$catRow['category_name']?></option>
+                  <?php } ?>
+                </select>
+                <button type="submit" class="btn btn-primary">Apply</button>
+                <a href="tables.php" class="btn btn-secondary">Reset</a>
+              </form>
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Tendar ID</th>
                       <th>Sector</th>
+                      <th>Category</th>
                       <th>Discription</th>
                       <th>File1</th>
                       <th>File2</th>
@@ -95,11 +116,12 @@ $result=select($query);
 					
 					?>
                     <tr>
-                      <td><?=$r[1]?></td>
-                      <td><?=$r[2]?></td>
-                      <td><?=$r[3]?></td>
-                       <td><a class="btn btn-success" href="<?=$r[4]?>">Download</a></td>
-                      <td><a class="btn btn-success"  href="<?=$r[5]?>">Download</a></td>
+                      <td><?=$r['TID']?></td>
+                      <td><?=$r['sector_name']?></td>
+                      <td><?=$r['normalized_category']?></td>
+                      <td><?=$r['discription']?></td>
+                      <td><a class="btn btn-success" href="<?=$r['fileone']?>">Download</a></td>
+                      <td><a class="btn btn-success"  href="<?=$r['filetwo']?>">Download</a></td>
                        <td><?=$city?></td>
                        <td><?=$INR?></td>
                        <td><?=$due_date?></td>

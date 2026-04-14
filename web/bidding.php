@@ -9,6 +9,32 @@ else
 	header("location:login.php");
 }
 
+$tenderId = isset($_REQUEST['id']) ? (int)$_REQUEST['id'] : 0;
+$tenderCategory = 'General';
+$isTenderClosed = false;
+$existingBid = null;
+$existingBidId = 0;
+if($tenderId > 0)
+{
+	$tenderRes = select("SELECT category, allot FROM tender WHERE id='".$tenderId."' LIMIT 1");
+	if($tenderRes && mysqli_num_rows($tenderRes) > 0)
+	{
+		$tenderRow = mysqli_fetch_assoc($tenderRes);
+		$tenderCategory = !empty($tenderRow['category']) ? $tenderRow['category'] : 'General';
+		$isTenderClosed = isset($tenderRow['allot']) && (string)$tenderRow['allot'] !== "\0" && (string)$tenderRow['allot'] !== "0";
+	}
+
+	if(isset($_SESSION['id']))
+	{
+		$existingBidRes = select("SELECT bid_id, email, mobile, charge, days FROM bidding WHERE tenderid='".$tenderId."' AND userid='".$_SESSION['id']."' ORDER BY bid_id DESC LIMIT 1");
+		if($existingBidRes && mysqli_num_rows($existingBidRes) > 0)
+		{
+			$existingBid = mysqli_fetch_assoc($existingBidRes);
+			$existingBidId = (int)$existingBid['bid_id'];
+		}
+	}
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -107,23 +133,32 @@ else
                     </div>
 					<div class="form-group">
 					Email-
-                      <input type="text" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Your Email...">
+	                      <input type="text" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Your Email..." value="<?=($existingBid && isset($existingBid['email'])) ? $existingBid['email'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
 					<div class="form-group">
 					Mobile-
-                      <input type="text" class="form-control form-control-user" name="mobile" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Your Mobile...">
+	                      <input type="text" class="form-control form-control-user" name="mobile" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Your Mobile..." value="<?=($existingBid && isset($existingBid['mobile'])) ? $existingBid['mobile'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
                     
 					 <div class="form-group">
 					Charge-
-                      <input type="text" class="form-control form-control-user" name="charge" id="exampleInputPassword" placeholder="Password">
+	                      <input type="text" class="form-control form-control-user" name="charge" id="exampleInputPassword" placeholder="Password" value="<?=($existingBid && isset($existingBid['charge'])) ? $existingBid['charge'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
 					<div class="form-group">
 					Days-
-                      <input type="text" class="form-control form-control-user" name="day" id="exampleInputPassword" placeholder="Password">
+	                      <input type="text" class="form-control form-control-user" name="day" id="exampleInputPassword" placeholder="Password" value="<?=($existingBid && isset($existingBid['days'])) ? $existingBid['days'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
+					<div class="form-group">
+					Category-
+					  <input type="text" class="form-control form-control-user" readonly value="<?=$tenderCategory?>" name="category_display">
+					  <input type="hidden" name="category" value="<?=$tenderCategory?>">
+					</div>
                     
-                     <input type="submit"  value="BIDDING" name="bidding" class="btn btn-primary btn-user btn-block">
+                     <?php if($isTenderClosed) { ?>
+					 <div class="alert alert-warning">This tender is closed. You can no longer place or edit bid.</div>
+					<?php } else { ?>
+	                     <input type="submit"  value="<?= $existingBid ? 'UPDATE BID' : 'BIDDING' ?>" name="bidding" class="btn btn-primary btn-user btn-block">
+					<?php } ?>
                
                     <hr>
                     
@@ -132,23 +167,49 @@ else
 				  <?php
 if(isset($_REQUEST['bidding']))
 	{
-		extract($_REQUEST);
-	//$email=trim($_REQUEST['email']);
-	//$password=trim($_REQUEST['password']);
-	
-	$userid=$_SESSION['id'];
-	
-	$query="INSERT INTO `bidding`( `name`, `email`, `mobile`, `charge`, `days`, `tenderid`, `userid`) VALUES 
-	( '$name', '$email', '$mobile', '$charge', '$day', '$id','$userid')";
-	
-	
-	
-	$n=iud($query);
+		if($tenderId <= 0)
+		{
+			echo"Invalid tender selected";
+			exit();
+		}
+
+		if($isTenderClosed)
+		{
+			echo"<script>alert('Tender is closed. Bid cannot be modified.'); window.location='tender.php';</script>";
+			exit();
+		}
+
+		$name = addslashes(trim($_REQUEST['name']));
+		$email = addslashes(trim($_REQUEST['email']));
+		$mobile = addslashes(trim($_REQUEST['mobile']));
+		$charge = addslashes(trim($_REQUEST['charge']));
+		$day = addslashes(trim($_REQUEST['day']));
+		$category = isset($_REQUEST['category']) ? addslashes(trim($_REQUEST['category'])) : 'General';
+		$userid=$_SESSION['id'];
+		
+		if($existingBidId > 0)
+		{
+			$query="UPDATE `bidding` SET 
+			`name`='$name',
+			`email`='$email',
+			`mobile`='$mobile',
+			`charge`='$charge',
+			`days`='$day',
+			`category`='$category'
+			WHERE `bid_id`='$existingBidId' AND `userid`='$userid'";
+		}
+		else
+		{
+			$query="INSERT INTO `bidding`( `name`, `email`, `mobile`, `charge`, `days`, `category`, `tenderid`, `userid`) VALUES 
+			( '$name', '$email', '$mobile', '$charge', '$day', '$category', '$tenderId','$userid')";
+		}
+		
+		$n=iud($query);
 	//$n=mysqli_num_rows($login_data);
-	if($n==1)
+	if($n>=0)
 	{
-			
-		 echo'<script>alert("BIDDING SUCCESSFUL");
+			$message = $existingBidId > 0 ? "BID UPDATED SUCCESSFULLY" : "BIDDING SUCCESSFUL";
+		 echo'<script>alert("'.$message.'");
 window.location="tender.php"		 </script>';
 	}
 	else
