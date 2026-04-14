@@ -90,9 +90,9 @@ CREATE TABLE `registration` (
 -- Dumping data for table `registration`
 --
 
-INSERT INTO `registration` (`id`, `name`, `mobile`, `email`, `password`) VALUES
-(1, 'admin', '7896547896', 'admin@gmail.com', 'password'),
-(2, 'anshu', '7745990607', 'anshu@gmail.com', '111111');
+INSERT INTO `registration` (`id`, `name`, `mobile`, `email`, `aadhaar`, `password`) VALUES
+(1, 'admin', '7896547896', 'admin@gmail.com', '123456789012', 'password'),
+(2, 'anshu', '7745990607', 'punit@gmail.com', '123456789013', '111111');
 
 -- --------------------------------------------------------
 
@@ -166,8 +166,7 @@ ALTER TABLE `head`
 --
 -- Indexes for table `registration`
 --
-ALTER TABLE `registration`
-  ADD PRIMARY KEY (`id`);
+-- Primary key is already defined in CREATE TABLE for `registration`.
 
 --
 -- Indexes for table `team`

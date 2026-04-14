@@ -46,7 +46,7 @@ check_docker() {
 }
 
 check_docker_compose() {
-    if ! command -v docker compose &> /dev/null; then
+    if ! docker compose version &> /dev/null; then
         print_error "Docker Compose is not installed."
         echo "Visit: https://docs.docker.com/compose/install/"
         exit 1
@@ -129,7 +129,7 @@ show_credentials() {
     
     echo ""
     echo -e "${YELLOW}User Account:${NC}"
-    echo "  Email:    anshu@gmail.com"
+    echo "  Email:    punit@gmail.com"
     echo "  Password: 111111"
     echo ""
     echo -e "${YELLOW}Admin Account:${NC}"

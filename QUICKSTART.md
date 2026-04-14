@@ -41,7 +41,7 @@ docker compose up -d
 ### User
 
 ```
-Email:    anshu@gmail.com
+Email:    punit@gmail.com
 Password: 111111
 ```
 

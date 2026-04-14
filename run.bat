@@ -127,7 +127,7 @@ echo CREDENTIALS
 echo ================================================================
 echo.
 echo User Account:
-echo   Email:    anshu@gmail.com
+echo   Email:    punit@gmail.com
 echo   Password: 111111
 echo.
 echo Admin Account:

@@ -63,7 +63,7 @@ docker compose down -v
 ### User Account
 
 ```
-Email:    anshu@gmail.com
+Email:    punit@gmail.com
 Password: 111111
 ```
 
@@ -265,7 +265,7 @@ docker compose up -d
 
 ```bash
 # Verify database is healthy
-docker exec digitenter-db mysql -uroot -prootpassword -e "SELECT 1;"
+docker exec digitender-db mysql -uroot -prootpassword -e "SELECT 1;"
 
 # Check database logs
 docker logs digitender-db | grep -i error
