@@ -56,17 +56,17 @@ include"dbconfig.php";
 		<div class="top-strip">
 			<div class="address">
 				<ul>
-					<li><a href="https://projecttunnel.com/"><span class="link"> </span>www.projecttunnel.com</a></li>
-					<li><a href="mailto:example@email.com"><span class="mes"> </span>projecttunnel52@gmail.com</a></li>
-					<li><span class="ph"> </span>9993639672</li>
+					<li><a href="http://localhost:8080/"><span class="link"> </span>www.tender.com</a></li>
+					<li><a href="mailto:example@email.com"><span class="mes"> </span>punitsankhala@gmail.com</a></li>
+					<li><span class="ph"> </span>9589879629</li>
 				</ul>
 			</div>
 			<div class="social-icons">
 				<ul>
 					<li><a href="admin/index.php" class="home-admin-btn">Admin Login</a></li>
-					<li><a href="https://www.facebook.com/projecttunnel/"> <span class="w-f"> </span></a></li>
-                   <li><a href="https://twitter.com/PROJECTTUNNEL1"> <span class="w-tw"> </span></a></li>
-                   <li><a href="https://www.linkedin.com/in/project-tunnel-75479a164/"> <span class="w-in"> </span></a></li>
+					<li><a href="https://www.facebook.com/"> <span class="w-f"> </span></a></li>
+                   <li><a href="https://twitter.com/"> <span class="w-tw"> </span></a></li>
+                   <li><a href="https://www.linkedin.com/in/"> <span class="w-in"> </span></a></li>
 				</ul>
 			</div>
 		  <div class="clearfix"> </div>
@@ -257,7 +257,7 @@ include"dbconfig.php";
 			  <div class="clearfix"> </div>
 			</div>
 			<div class="footer-bottom">
-				<p>Developed By  <a href="http://projecttunnel.com/">Projecttunnel </a></p>
+				<p>Developed By  <a href="http://localhost:8080/">Punit </a></p>
 			</div>
 		</div>
 	   </div>

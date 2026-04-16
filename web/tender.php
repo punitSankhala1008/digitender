@@ -153,8 +153,12 @@ Tender-<?=$n?></br>
 			</div>
 			<div class="col-lg-4">
 			<div class="download-actions">
-				<a href="admin/<?=$fileone?>" class="btn btn-danger">Download File 1</a>
-				<a href="admin/<?=$filetwo?>" class="btn btn-danger">Download File 2</a>
+				<?php if(!empty($fileone)): ?>
+					<a href="download.php?file=<?=urlencode(basename($fileone))?>" class="btn btn-danger">Download File 1</a>
+				<?php endif; ?>
+				<?php if(!empty($filetwo)): ?>
+					<a href="download.php?file=<?=urlencode(basename($filetwo))?>" class="btn btn-danger">Download File 2</a>
+				<?php endif; ?>
 			</div>
 			</div>
 			<div class="col-lg-2">

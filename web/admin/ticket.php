@@ -9,6 +9,13 @@ else
 	header('Location: login.php');
 }
 
+$nextTenderId = 1;
+$nextTenderIdResult = select("SELECT IFNULL(MAX(TID), 0) + 1 AS next_tid FROM tender");
+if($nextTenderIdResult && ($nextRow = mysqli_fetch_assoc($nextTenderIdResult)))
+{
+  $nextTenderId = (int)$nextRow['next_tid'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +153,7 @@ else
 				 <label for="lastName">TID</label>
                 
                   <div class="form-label-group">
-                    <input type="text" id="lastName" class="form-control" name="tid" placeholder="Tender ID" required="required">
+                    <input type="text" id="lastName" class="form-control" name="tid" value="<?=$nextTenderId?>" readonly>
                      </div>
                 </div>
               </div>
@@ -230,7 +237,13 @@ if(isset($_REQUEST['tender']))
 {
   extract($_REQUEST);
 
-  $tid = addslashes(trim($tid));
+  $generatedTid = 1;
+  $generatedTidResult = select("SELECT IFNULL(MAX(TID), 0) + 1 AS next_tid FROM tender");
+  if($generatedTidResult && ($generatedTidRow = mysqli_fetch_assoc($generatedTidResult))) {
+    $generatedTid = (int)$generatedTidRow['next_tid'];
+  }
+
+  $tid = addslashes((string)$generatedTid);
   $sector = addslashes(trim($sector));
   $category = isset($_REQUEST['category']) ? addslashes(trim($_REQUEST['category'])) : 'General';
   $discription = addslashes(trim($discription));

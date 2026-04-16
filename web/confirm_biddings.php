@@ -177,8 +177,8 @@ Tender-<?=$n?></br>
 			City-<?=$r['city']?>
 			</div>
 			<div class="col-lg-4">
-			<a href="admin/<?=$r['fileone']?>" class="btn btn-danger">Download File</a></br>
-			<a href="admin/<?=$r['filetwo']?>" class="btn btn-danger">Download File</a>
+			<?php if(!empty($r['fileone'])): ?><a href="download.php?file=<?=urlencode(basename($r['fileone']))?>" class="btn btn-danger">Download File</a></br><?php endif; ?>
+			<?php if(!empty($r['filetwo'])): ?><a href="download.php?file=<?=urlencode(basename($r['filetwo']))?>" class="btn btn-danger">Download File</a><?php endif; ?>
 			</div>
 			<div class="col-lg-2">
 			

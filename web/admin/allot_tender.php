@@ -120,8 +120,8 @@ $categoryResult = select("SELECT DISTINCT COALESCE(NULLIF(category,''),'General'
                       <td><?=$r['sector_name']?></td>
                       <td><?=$r['normalized_category']?></td>
                       <td><?=$r['discription']?></td>
-                      <td><a class="btn btn-success" href="<?=$r['fileone']?>">Download</a></td>
-                      <td><a class="btn btn-success"  href="<?=$r['filetwo']?>">Download</a></td>
+                      <td><?php if(!empty($r['fileone'])): ?><a class="btn btn-success" href="../download.php?file=<?=urlencode(basename($r['fileone']))?>">Download</a><?php else: ?><span style="color:gray;">-</span><?php endif; ?></td>
+                      <td><?php if(!empty($r['filetwo'])): ?><a class="btn btn-success" href="../download.php?file=<?=urlencode(basename($r['filetwo']))?>">Download</a><?php else: ?><span style="color:gray;">-</span><?php endif; ?></td>
                        <td><?=$city?></td>
                        <td><?=$INR?></td>
                        <td><?=$due_date?></td>

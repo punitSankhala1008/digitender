@@ -187,7 +187,7 @@ include"dbconfig.php";
 			  <div class="clearfix"> </div>
 			</div>
 			<div class="footer-bottom">
-				<p>Developed By  <a href="http://projecttunnel.com/">Projecttunnel </a></p>
+				<p>Developed By  <a href="http://projecttunnel.com/">Punit </a></p>
 			</div>
 		</div>
 	   </div>

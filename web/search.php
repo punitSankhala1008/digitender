@@ -123,8 +123,8 @@ Tender-<?=$n?></br>
 			INR-<?=$INR?>/-
 			</div>
 			<div class="col-lg-4">
-			<a href="admin/<?=$fileone?>" class="btn btn-danger">Download File</a></br>
-			<a href="admin/<?=$filetwo?>" class="btn btn-danger">Download File</a>
+			<?php if(!empty($fileone)): ?><a href="download.php?file=<?=urlencode(basename($fileone))?>" class="btn btn-danger">Download File</a></br><?php endif; ?>
+			<?php if(!empty($filetwo)): ?><a href="download.php?file=<?=urlencode(basename($filetwo))?>" class="btn btn-danger">Download File</a><?php endif; ?>
 			</div>
 			<div class="col-lg-2">
 			

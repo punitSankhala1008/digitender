@@ -142,11 +142,11 @@ if($tenderId > 0)
                     
 					 <div class="form-group">
 					Charge-
-	                      <input type="text" class="form-control form-control-user" name="charge" id="exampleInputPassword" placeholder="Password" value="<?=($existingBid && isset($existingBid['charge'])) ? $existingBid['charge'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
+	                      <input type="text" class="form-control form-control-user" name="charge" id="exampleInputPassword" placeholder="Charge" value="<?=($existingBid && isset($existingBid['charge'])) ? $existingBid['charge'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
 					<div class="form-group">
-					Days-
-	                      <input type="text" class="form-control form-control-user" name="day" id="exampleInputPassword" placeholder="Password" value="<?=($existingBid && isset($existingBid['days'])) ? $existingBid['days'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
+					Duration-
+	                      <input type="text" class="form-control form-control-user" name="day" id="exampleInputPassword" placeholder="Days" value="<?=($existingBid && isset($existingBid['days'])) ? $existingBid['days'] : ''?>" <?= $isTenderClosed ? 'readonly' : '' ?>>
                     </div>
 					<div class="form-group">
 					Category-
