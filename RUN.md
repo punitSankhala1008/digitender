@@ -1,4 +1,4 @@
-# Digitender - Application Setup & Run Guide
+# DigiTender - Application Setup & Run Guide
 
 ## Quick Start (Docker - Recommended)
 

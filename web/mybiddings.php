@@ -43,7 +43,7 @@ include"dbconfig.php";
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Tender A Corporate category Flat bootstrap Responsive  Website Template | Home :: w3layouts</title>
+<title>DigiTender A Corporate category Flat bootstrap Responsive  Website Template | Home :: w3layouts</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="js/jquery.min.js"></script>
@@ -54,7 +54,7 @@ include"dbconfig.php";
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }>
 </script>
-<meta name="keywords" content="Tender Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<meta name="keywords" content="DigiTender Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <!--Google Fonts-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
@@ -95,7 +95,7 @@ include"dbconfig.php";
 <!--top nav end here-->	
 <!--title start here-->
 <div class="title-main">
-			<a href="index.php"><h1>Tender</h1></a>
+			<a href="index.php"><h1>DigiTender</h1></a>
 		
 </div>
 <!--title end here-->

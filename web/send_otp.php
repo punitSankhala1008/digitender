@@ -31,7 +31,7 @@ if ($apiKey === '') {
     exit();
 }
 
-$message = "Your OTP for Digitender registration is " . $otp . ".";
+$message = "Your OTP for DigiTender registration is " . $otp . ".";
 $url = "https://www.fast2sms.com/dev/bulkV2?authorization=" . urlencode($apiKey)
     . "&message=" . urlencode($message)
     . "&language=english&route=q&numbers=" . urlencode($mobile);

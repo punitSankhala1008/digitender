@@ -8,12 +8,12 @@ include "dbconfig.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Digitender</title>
+    <title>Register - DigiTender</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-<h2>Register for Digitender</h2>
+<h2>Register for DigiTender</h2>
 
 <form action="verify_otp.php" method="POST">
     <div class="form-group">

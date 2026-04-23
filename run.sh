@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Digitender - Quick Start Script
-# This script automates the setup and launch of the Digitender application
+# DigiTender - Quick Start Script
+# This script automates the setup and launch of the DigiTender application
 
 set -e
 

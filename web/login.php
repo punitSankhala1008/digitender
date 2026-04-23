@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login | Digitender</title>
+    <title>Login | DigiTender</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
 <body class="auth-page">
     <div class="auth-wrap">
         <div class="auth-brand">
-            <a href="index.php">Digitender</a>
+            <a href="index.php">DigiTender</a>
             <p>Tender and bidding platform</p>
         </div>
 
@@ -74,7 +74,7 @@ if (isset($_POST['login'])) {
             </form>
 
             <div class="auth-footer">
-                New to Digitender? <a href="register.php">Create account</a>
+                New to DigiTender? <a href="register.php">Create account</a>
             </div>
         </div>
     </div>

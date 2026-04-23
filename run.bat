@@ -1,11 +1,11 @@
 @echo off
-REM Digitender - Quick Start Script for Windows
-REM This script automates the setup and launch of the Digitender application
+REM DigiTender - Quick Start Script for Windows
+REM This script automates the setup and launch of the DigiTender application
 
 setlocal enabledelayedexpansion
 
 REM Color codes using title attribute
-title Digitender - Application Launcher
+title DigiTender - Application Launcher
 
 :main
 if "%1"=="" goto start
@@ -149,7 +149,7 @@ exit /b 0
 
 :stop
 echo.
-echo Stopping Digitender...
+echo Stopping DigiTender...
 docker compose stop
 echo [OK] Application stopped
 pause
@@ -157,7 +157,7 @@ exit /b 0
 
 :restart
 echo.
-echo Restarting Digitender...
+echo Restarting DigiTender...
 docker compose restart
 echo [OK] Application restarted
 timeout /t 5 /nobreak >nul

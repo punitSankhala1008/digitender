@@ -1,10 +1,10 @@
-# Digitender
+# DigiTender
 
 A web-based tender and bidding management system built with PHP, MySQL, and Bootstrap.
 
 ## Project Overview
 
-Digitender is a platform that enables organizations to post tenders and allows vendors to place bids on those tenders. It includes both user-facing and admin dashboard interfaces for comprehensive tender management.
+DigiTender is a platform that enables organizations to post tenders and allows vendors to place bids on those tenders. It includes both user-facing and admin dashboard interfaces for comprehensive tender management.
 
 ## Features
 

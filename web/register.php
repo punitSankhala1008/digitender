@@ -53,7 +53,7 @@ if (isset($_POST['register'])) {
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Register | Digitender</title>
+    <title>Register | DigiTender</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -81,7 +81,7 @@ if (isset($_POST['register'])) {
 
 <div class="auth-wrap">
     <div class="auth-brand">
-        <a href="index.php">Digitender</a>
+        <a href="index.php">DigiTender</a>
         <p>Create your account to start bidding</p>
     </div>
 

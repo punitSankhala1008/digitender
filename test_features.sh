@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# End-to-end smoke tests for Digitender setup.
+# End-to-end smoke tests for DigiTender setup.
 # Usage:
 #   ./test_features.sh
 # Optional env overrides:
@@ -71,7 +71,7 @@ check_contains() {
   fi
 }
 
-echo "Running Digitender feature tests against $BASE_URL"
+echo "Running DigiTender feature tests against $BASE_URL"
 
 echo "== Basic endpoint checks =="
 check_http_200 "Home page" "/"

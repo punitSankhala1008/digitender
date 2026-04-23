@@ -1,4 +1,4 @@
-# Digitender - Quick Reference
+# DigiTender - Quick Reference
 
 ## 🚀 Start Application
 

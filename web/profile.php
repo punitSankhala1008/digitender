@@ -85,7 +85,7 @@ if(isset($user['aadhaar']) && $user['aadhaar'] !== '')
 <!DOCTYPE html>
 <html>
 <head>
-        <title>My Profile | Digitender</title>
+        <title>My Profile | DigiTender</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
@@ -116,7 +116,7 @@ if(isset($user['aadhaar']) && $user['aadhaar'] !== '')
       </div>
 
             <div class="title-main">
-                <a href="index.php"><h1>Tender</h1></a>
+                <a href="index.php"><h1>DigiTender</h1></a>
       </div>
 
             <div class="header">
