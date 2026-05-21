@@ -8,7 +8,9 @@ define("database", getenv("DB_NAME") ?: "test", true);
 
 function iud($query)
 {
-    $cid = mysqli_connect(server, user, password, database) or die("connection error");
+    $port = getenv("DB_PORT") ?: 4000;
+    $cid = mysqli_init();
+    mysqli_real_connect($cid, server, user, password, database, $port, NULL, MYSQLI_CLIENT_SSL) or die("connection error");
     $result = mysqli_query($cid, $query);
     $n = mysqli_affected_rows($cid);
     mysqli_close($cid);
@@ -17,7 +19,9 @@ function iud($query)
 
 function select($query)
 {
-    $cid = mysqli_connect(server, user, password, database) or die("connection error");
+    $port = getenv("DB_PORT") ?: 4000;
+    $cid = mysqli_init();
+    mysqli_real_connect($cid, server, user, password, database, $port, NULL, MYSQLI_CLIENT_SSL) or die("connection error");
     $result = mysqli_query($cid, $query);
     mysqli_close($cid);
     return $result;

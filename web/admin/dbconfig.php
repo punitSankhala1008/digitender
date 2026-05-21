@@ -6,7 +6,9 @@ $user = getenv("DB_USER") ?: "root";
 $pass = getenv("DB_PASSWORD") !== false ? getenv("DB_PASSWORD") : "";
 $dbname = getenv("DB_NAME") ?: "test";
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+$port = getenv("DB_PORT") ?: 4000;
+$conn = mysqli_init();
+$conn->real_connect($host, $user, $pass, $dbname, $port, NULL, MYSQLI_CLIENT_SSL);
 
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
